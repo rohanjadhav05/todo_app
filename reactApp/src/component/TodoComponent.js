@@ -81,7 +81,7 @@ const TodoComponent = () => {
       <h2 className='text-center mt-3' style={{paddingLeft : '40%' }}>List of Todo</h2>
       <Button variant="contained" onClick={addNewTodo}>Add new Todo</Button>
       <TableContainer >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table" style={{ flexDirection: 'column', height: '75vh' }}>
           <TableHead>
             <TableRow>
               <TableCell align="center">Id</TableCell>

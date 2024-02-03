@@ -32,7 +32,8 @@ export default function AddTodo() {
   }
 
   return (
-    <Box
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '87vh' }}>
+      <Box
       component="form"
       sx={{
         '& > :not(style)': { m: 1, width: '25ch' },
@@ -40,6 +41,7 @@ export default function AddTodo() {
       noValidate
       autoComplete="off"
     >
+      Todo Description 
       <TextField 
           id="outlined-basic" 
           label="Enter desc" 
@@ -49,8 +51,9 @@ export default function AddTodo() {
           onChange={(e)=>{
             setTodoDesc(e.target.value);
           }}
-          >Todo Desc</TextField>
+          />
       <Button variant="contained" onClick={saveTodo}>Add</Button>
     </Box>
+    </div>
   );
 }

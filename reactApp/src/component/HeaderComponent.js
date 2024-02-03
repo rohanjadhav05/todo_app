@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 export default function DenseAppBar() {
   return (
@@ -14,9 +15,11 @@ export default function DenseAppBar() {
           <IconButton href='/add-todo' edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" component="div">
-            Todo App
-          </Typography>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, textAlign: 'center', cursor: 'pointer' }}>
+              Todo App
+            </Typography>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
