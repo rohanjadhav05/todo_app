@@ -23,11 +23,13 @@ public class TodoServiceImpl implements TodoService{
 
 	@Autowired
 	private todoRepository todoRepo;
+	
+	private TodoMapper todoMapper;
 
 	@Override
 	public TodoDto getTodo(Integer id) {
 		Todos todo = todoRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Messgae with Id doesn't exists : "+id));
-		return TodoMapper.maptoTodoDto(todo);
+		return todoMapper.maptoTodoDto(todo);
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class TodoServiceImpl implements TodoService{
 		List<Todos> allTodos = todoRepo.findAll();
 		List<TodoDto> todoDto = new ArrayList<>();
 		for(Todos t : allTodos) {
-			todoDto.add(TodoMapper.maptoTodoDto(t));
+			todoDto.add(todoMapper.maptoTodoDto(t));
 		}
 		return todoDto;
 	}
@@ -46,16 +48,17 @@ public class TodoServiceImpl implements TodoService{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd HH:mm:ss");
 		todoDto.setTodoCreate(dateFormat.format(currentDate));
 		todoDto.setTodoStatus("New");
-		Todos todo = TodoMapper.mapToTodos(todoDto); 
+		System.out.println("toDo "+todoDto.toString());
+		Todos todo = todoMapper.mapToTodos(todoDto); 
 		Todos savedTodo = todoRepo.save(todo);
-		return TodoMapper.maptoTodoDto(savedTodo);
+		return todoMapper.maptoTodoDto(savedTodo);
 	}
 
 	@Override
 	public TodoDto deleteTodoById(Integer id) {
 		Todos deleteTodo = todoRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Message with Id doesn't not exists : "+id ));
 		todoRepo.delete(deleteTodo);
-		return TodoMapper.maptoTodoDto(deleteTodo);
+		return todoMapper.maptoTodoDto(deleteTodo);
 	}
 
 	@Override

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.app.todos.dto.UserDto;
 import com.app.todos.entity.User;
-import com.app.todos.exception.ResourceNotFoundException;
 import com.app.todos.mapper.TodoMapper;
 import com.app.todos.repository.UserRepository;
 
@@ -21,6 +20,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepo;
 
+	private TodoMapper todoMapper;
+	
 	public static String hashPassword(String plainPass) {
 		String salt = BCrypt.gensalt();
 		return BCrypt.hashpw(plainPass, salt);
@@ -31,8 +32,8 @@ public class UserServiceImpl implements UserService {
 	public UserDto addUser(UserDto userDto) {
 		// hash Password and save in database;
 		userDto.setUserPass(hashPassword(userDto.getUserPass()));
-		User savedUser = userRepo.save(TodoMapper.mapToUser(userDto));
-		return TodoMapper.mapToUserDto(savedUser);
+		User savedUser = userRepo.save(todoMapper.mapToUser(userDto));
+		return todoMapper.mapToUserDto(savedUser);
 	}
 
 	@Override
