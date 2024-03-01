@@ -1,7 +1,9 @@
 package com.app.todos.mapper;
 
 import com.app.todos.dto.TodoDto;
+import com.app.todos.dto.UserDto;
 import com.app.todos.entity.Todos;
+import com.app.todos.entity.User;
 
 public class TodoMapper {
 	public static TodoDto maptoTodoDto(Todos todo) {
@@ -10,7 +12,8 @@ public class TodoMapper {
 					todo.getTodoDesc(),
 					todo.getTodoCreate(),
 					todo.getTodoDone(),
-					todo.getTodoStatus()
+					todo.getTodoStatus(),
+					todo.getUser().getUserId()
 		);
 	}
 	
@@ -21,6 +24,26 @@ public class TodoMapper {
 		todo.setTodoCreate(todoDto.getTodoCreate());
 		todo.setTodoDone(todoDto.getTodoDone());
 		todo.setTodoStatus(todoDto.getTodoStatus());
+		todo.setUser();
 		return todo;
 	}
+	
+	public static User mapToUser(UserDto userDto) {
+		User user = new User();
+		user.setUserId(userDto.getUserId());
+		user.setUserName(userDto.getUserName());
+		user.setUserEmail(userDto.getUserEmail());
+		user.setUserPass(userDto.getUserPass());
+		return user;
+	}
+	
+	public static UserDto mapToUserDto(User user) {
+		return new UserDto(
+						user.getUserId(),
+						user.getUserName(),
+						user.getUserEmail(),
+						user.getUserPass()
+		);
+	}
+	
 }

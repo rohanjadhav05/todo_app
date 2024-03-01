@@ -15,4 +15,5 @@ public class TodoDto {
 	private String todoCreate;
 	private String todoDone;
 	private String todoStatus;
+	private int userId;
 }
