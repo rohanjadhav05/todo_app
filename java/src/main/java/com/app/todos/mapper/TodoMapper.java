@@ -15,12 +15,12 @@ public class TodoMapper {
 	}
 	
 	public static Todos mapToTodos(TodoDto todoDto) {
-		return new Todos(
-					todoDto.getTodoId(),
-					todoDto.getTodoDesc(),
-					todoDto.getTodoCreate(),
-					todoDto.getTodoDone(),
-					todoDto.getTodoStatus()
-		);		
+		Todos todo = new Todos();
+		todo.setTodoId(todoDto.getTodoId());
+		todo.setTodoDesc(todoDto.getTodoDesc());
+		todo.setTodoCreate(todoDto.getTodoCreate());
+		todo.setTodoDone(todoDto.getTodoDone());
+		todo.setTodoStatus(todoDto.getTodoStatus());
+		return todo;
 	}
 }
