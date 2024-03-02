@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { updateToInProgress, getallTodo, updateTodoService, deleteTodoService } from '../service/TodoService';
 import Table from '@mui/material/Table';
@@ -13,6 +13,22 @@ import NotStartedOutlinedIcon from '@mui/icons-material/NotStartedOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { toast } from 'react-toastify'
 
+export interface TodoDto{
+  todoId : number,
+  todoDesc : string,
+  todoCreate : string,
+  todoDone : string,
+  todoStatus : string,
+  userId : number
+}
+
+export interface UserDto{
+  userId : number,
+	userName : string,
+  userEmail : string,
+	userPass : string, 
+}
+
 const TodoComponent = () => {
   const [todo, setTodo] = useState([])
   const navigator = useNavigate();
@@ -22,7 +38,8 @@ const TodoComponent = () => {
   }, []);
 
   function getAllTodos() {
-    getallTodo().then((response) => {
+    const id : number = localStorage['userId'];
+    getallTodo(id).then((response) => {
       const result = response.data;
       setTodo(result['data']);
     }).catch(error => {
@@ -30,20 +47,15 @@ const TodoComponent = () => {
     })
   }
 
-  function inProgressTodo(t){
-    const todoId = t.todoId;
+  function inProgressTodo(t : TodoDto){
     const todoStatus = t.todoStatus;
-    const todoCreate = t.todoCreate;
-    const todoDone = t.todoDone;
-    const todoDesc = t.todoDesc;
-    const todo = {todoId, todoDesc, todoCreate, todoStatus, todoDone};
     if(todoStatus == 'Done'){
       toast.error("Status is Already Done");
     }
     else if(todoStatus == 'In-Progress'){
       toast.error("Status is Already In-Progress");
     }else{
-      updateToInProgress(todo).then((response) => {
+      updateToInProgress(t).then(() => {
         toast.warning("Changed to In-Progress");
         getAllTodos();
       }).catch(err => {
@@ -56,23 +68,24 @@ const TodoComponent = () => {
     navigator("/add-todo")
   }
 
-  function doneTodo(todoId){
-    const todo = {todoId};
-    updateTodoService(todo).then((response) => {
+  function doneTodo(todoId : number){
+    updateTodoService(todoId).then(() => {
       toast.success("Task done");
       getAllTodos();
     }).catch(err => {
       toast.error("Task Failed");
+      console.error(err);
     })
     //navigator(`/update-todo/${todoId}`)
   }
 
-  function deleteTodo(todoId){
-    deleteTodoService(todoId).then((response) => {
+  function deleteTodo(todoId : number){
+    deleteTodoService(todoId).then(() => {
       toast.success("Task Deleted Successfully");
       getAllTodos();
     }).catch(err => {
       toast.error("Failed to Delete the Task");
+      console.error(err);
     })
   }
 
@@ -93,7 +106,7 @@ const TodoComponent = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {todo.map((t) => (
+            {todo.map((t : TodoDto) => (
               <TableRow
                 key={t.todoId}
               >

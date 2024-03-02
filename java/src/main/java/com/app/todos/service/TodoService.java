@@ -6,7 +6,7 @@ import java.util.Map;
 import com.app.todos.dto.TodoDto;
 
 public interface TodoService {
-	TodoDto getTodo(Integer id);
+	List<TodoDto> getTodo(Integer id);
 	
 	List<TodoDto> getAllTodo();
 	

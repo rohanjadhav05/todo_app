@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.todos.dto.Response;
 import com.app.todos.dto.TodoDto;
+import com.app.todos.dto.UserDto;
 import com.app.todos.service.TodoService;
 
 import lombok.AllArgsConstructor;
@@ -27,9 +28,9 @@ public class TodoController {
 	@Autowired
 	private TodoService todoService;
 	
-	@GetMapping("{id}")
-	public ResponseEntity<?> getTodoById(@PathVariable("id") Integer id){
-		return Response.success(todoService.getTodo(id));
+	@GetMapping("{userId}")
+	public ResponseEntity<?> getTodoById(@PathVariable ("userId") int userId){
+		return Response.success(todoService.getTodo(userId));
 	}
 	
 	@PostMapping
@@ -37,10 +38,10 @@ public class TodoController {
 		return Response.success(todoService.createTodo(todoDto));
 	}
 	
-	@GetMapping
-	public ResponseEntity<?> getAllTodos(){
-		return Response.success(todoService.getAllTodo());
-	}
+//	@GetMapping
+//	public ResponseEntity<?> getAllTodos(){
+//		return Response.success(todoService.getAllTodo());
+//	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<?> deleteTodoById(@PathVariable("id") Integer id){

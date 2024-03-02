@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.app.todos.dto.TodoDto;
 import com.app.todos.entity.Todos;
+import com.app.todos.entity.User;
 import com.app.todos.exception.ResourceNotFoundException;
 import com.app.todos.mapper.TodoMapper;
+import com.app.todos.repository.UserRepository;
 import com.app.todos.repository.todoRepository;
 import lombok.AllArgsConstructor;
 
@@ -24,12 +26,20 @@ public class TodoServiceImpl implements TodoService{
 	@Autowired
 	private todoRepository todoRepo;
 	
+	@Autowired
+	private UserRepository userRepo;
+	
 	private TodoMapper todoMapper;
 
 	@Override
-	public TodoDto getTodo(Integer id) {
-		Todos todo = todoRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Messgae with Id doesn't exists : "+id));
-		return todoMapper.maptoTodoDto(todo);
+	public List<TodoDto> getTodo(Integer id) {
+		User user = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with Id doesn't exist"));
+		List<Todos> todoByUserId = todoRepo.findByUser(user);
+		List<TodoDto> todoDto = new ArrayList<>();
+		for(Todos t : todoByUserId) {
+			todoDto.add(todoMapper.maptoTodoDto(t));
+		}
+		return todoDto;
 	}
 
 	@Override

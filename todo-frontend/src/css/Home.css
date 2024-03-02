@@ -1,0 +1,10 @@
+/* src/components/Home.css */
+.banner-container {
+  background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Fmobile-app-background&psig=AOvVaw1vdU5caDqD7SLinP86xPGT&ust=1709465633386000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCPDw9fG91YQDFQAAAAAdAAAAABAE');
+  background-size: cover;
+  height: 100vh; /* Adjust as needed */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(69, 28, 28);
+}
