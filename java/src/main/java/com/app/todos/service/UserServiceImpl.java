@@ -37,15 +37,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String loginUser(UserDto login) {
+	public UserDto loginUser(UserDto login) {
 		List<User> list = userRepo.findByUserEmail(login.getUserEmail());
 		if(list.size() != 0) {
 			if(BCrypt.checkpw(login.getUserPass(), list.get(0).getUserPass())) {
-				return "Success";
+				return todoMapper.mapToUserDto(list.get(0));
 			}
-			return "Incorrect Password";
+			return null;
 		}
-		return "Email does not exists";
+		return null;
 	}
 	
 	

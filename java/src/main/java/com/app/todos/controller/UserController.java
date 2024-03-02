@@ -38,11 +38,11 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> LogInUser(@RequestBody UserDto userDto){
-		String result = userService.loginUser(userDto);
-		if(result.equals("Success")) {
-			return Response.success("Logged in Successfullly");
+		UserDto user = userService.loginUser(userDto);
+		if(user != null) {
+			return Response.success(user);
 		}
-		return Response.error(result);
+		return Response.error("Login In Failed");
 	
 	}
 	

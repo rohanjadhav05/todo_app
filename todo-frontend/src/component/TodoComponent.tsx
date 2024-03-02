@@ -68,8 +68,8 @@ const TodoComponent = () => {
     navigator("/add-todo")
   }
 
-  function doneTodo(todoId : number){
-    updateTodoService(todoId).then(() => {
+  function doneTodo(t : TodoDto){
+    updateTodoService(t).then(() => {
       toast.success("Task done");
       getAllTodos();
     }).catch(err => {
@@ -90,11 +90,11 @@ const TodoComponent = () => {
   }
 
   return (
-    <div style={{ alignContent: "center" }}>
-      <h2 className='text-center mt-3' style={{paddingLeft : '40%' }}>List of Todo</h2>
-      <Button variant="contained" onClick={addNewTodo}>Add new Todo</Button>
-      <TableContainer >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" style={{ flexDirection: 'column', height: '75vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+    <h2 className='text-center mt-3'>List of Todo</h2>
+      <Button variant="contained" onClick={addNewTodo} style={{ marginLeft: 'auto' }}>Add new Todo </Button>
+      <TableContainer>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table" style={{ flexDirection: 'column', height: '75vh' }}>
           <TableHead>
             <TableRow>
               <TableCell align="center">Id</TableCell>
@@ -119,7 +119,7 @@ const TodoComponent = () => {
                  <Button variant="outlined" startIcon={<NotStartedOutlinedIcon />}  style={{margin:'10px' }} onClick={() => inProgressTodo(t)}>
                       In-Progress
                   </Button>
-                  <Button variant='outlined' startIcon={<CheckCircleOutlinedIcon />} style={{margin:'10px' }} onClick={() => doneTodo(t.todoId)} >
+                  <Button variant='outlined' startIcon={<CheckCircleOutlinedIcon />} style={{margin:'10px' }} onClick={() => doneTodo(t)} >
                       Done
                   </Button>
                   <Button variant='outlined' startIcon={<DeleteOutlineOutlinedIcon />} onClick={() => deleteTodo(t.todoId)} >

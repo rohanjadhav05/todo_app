@@ -10,5 +10,5 @@ import com.app.todos.entity.User;
 public interface UserService {
 	UserDto addUser(UserDto userDto);
 	
-	String loginUser(UserDto login);
+	UserDto loginUser(UserDto login);
 }

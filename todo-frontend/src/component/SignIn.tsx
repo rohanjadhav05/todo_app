@@ -1,4 +1,4 @@
-import  { useState,  FormEvent, MouseEvent  } from "react";
+import  { useState,  FormEvent } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -62,25 +62,17 @@ export const SignIn = () => {
     }
     else{
         axios.post("http://localhost:7070/user/login", loginUserDto).then((response) => {
-            const result = response.data
-            console.log("Result : "+result);
+            const result = response.data;
+            console.log('Result :', result);
             if(result['status'] == 'success'){
-               const payload = result['data'].jwtToken;
-                localStorage['id'] = result['data'].id;
-                console.log(result['data'].id);
-                localStorage['jwt'] = result['data'].jwtToken
-                localStorage['loginStatus'] = 1
-                console.log('JWT : ', result['data'].jwtToken)
-                const message = 'Welcome to Atharva Classes '
-                if (result['data'].roles == 'ROLE_ADMIN') {
-                    navigator('/Admin', { state: { message } })
-                } else if (result['data'].roles == 'ROLE_USER') {
-                    navigator('/User', { state: { message } })
-                }
+                localStorage['userId'] = result['data'].userId;
+                console.log(result['data'].userId);
+                navigator('/todo')
             }
            // toast.success("Login Successfully");
         }).catch(err => {
             toast.error("InCorrect Username or Password");
+            console.error(err);
         })
     } 
   }

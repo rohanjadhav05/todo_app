@@ -18,8 +18,8 @@ function App() {
       <HeaderComponent />
         <Routes>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/login' element={<SignIn />}></Route>
-          <Route path='/signUp' element={<Signup />}></Route>
+          <Route path='/LogIn' element={<SignIn />}></Route>
+          <Route path='/Signup' element={<Signup />}></Route>
           <Route path='/todo' element={<TodoComponent />}></Route>
           <Route path='/add-todo' element={<AddTodo />}></Route>
           <Route path='/update-todo/:todoId' element={<AddTodo />}></Route>
