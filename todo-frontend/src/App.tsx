@@ -9,10 +9,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from './component/Home.js';
 import { SignIn } from './component/SignIn.js';
 import Signup from './component/Signup.js';
+import {
+  RecoilRoot,
+  useSetRecoilState
+} from 'recoil';
 
 function App() {
   return (
     <>
+    <RecoilRoot>
     <div style={{ width: '100vw' }}>
       <BrowserRouter>
       <HeaderComponent />
@@ -28,6 +33,7 @@ function App() {
       </BrowserRouter>
       <ToastContainer position='top-right' theme='colored' />
       </div>
+      </RecoilRoot>
     </>
   )
 }

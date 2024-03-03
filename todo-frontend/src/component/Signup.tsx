@@ -9,12 +9,12 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
 import { toast } from 'react-toastify' 
 import { useNavigate } from 'react-router-dom';
-import { Card } from '@material-ui/core';
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { UserDto } from "./TodoComponent";
 import { createUser } from '../service/TodoService';
+import { Paper } from '@mui/material';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   paper: {
-    marginTop: theme.spacing(8),
+    margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -50,7 +50,7 @@ const Signup = () => {
   const [name, SetName] = useState('');
   const [email, SetEmail ] = useState('');
   const [password, SetPassword] = useState('');
-
+  const classes = useStyles();
   const navigator = useNavigate();
 
   function saveUser(e: FormEvent<HTMLFormElement>){
@@ -76,22 +76,22 @@ const Signup = () => {
       })
     }
   }
-  const classes = useStyles();
   
   return (
     <div id = 'signup' style={{ display: 'flex', justifyContent : 'center'}}>
-    <Card style={{display :'flex', justifyContent:'center'}}>
-      <Container component="main" maxWidth="xs" >
+    <Grid2 container component="main" maxWidth="xs" >
         <CssBaseline />
+      <Grid item xs={false} sm={7} md={4}/>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" >
+          <Typography component="h1" variant="h5" style={{alignItems : 'center'}}>
             Sign up
           </Typography>
           <form className={classes.form} noValidate onSubmit={(e) => saveUser(e)}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} style={{padding : '30px'}}>
               <Grid item xs={12} sm={12}>
                 <TextField
                   autoComplete="fname"
@@ -108,7 +108,7 @@ const Signup = () => {
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   variant="outlined"
                   required
@@ -123,7 +123,7 @@ const Signup = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   variant="outlined"
                   required
@@ -139,7 +139,6 @@ const Signup = () => {
                   }}
                 />
               </Grid>
-            </Grid>
             <Button
               type="submit"
               fullWidth
@@ -149,17 +148,18 @@ const Signup = () => {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
+            <Grid container>
+              <Grid item xs>
                 <Link href="/LogIn" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
+          </Grid>
           </form>
         </div>
-      </Container>
-      </Card>
+        </Grid>
+      </Grid2>
       </div>
   );
 };

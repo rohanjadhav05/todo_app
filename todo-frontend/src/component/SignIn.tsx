@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   },
     paper: {
       margin: theme.spacing(8, 4),
-      display: "content",
+      display: "flex",
       flexDirection: "column",
       alignItems: "center"
     },
@@ -39,6 +39,10 @@ const useStyles = makeStyles(theme => ({
     },
     submit: {
       margin: theme.spacing(3, 0, 2)
+    },
+    container: {
+      display: "flex !important",
+      alignItems: "center !important",
     }
 }));
 
@@ -67,18 +71,21 @@ export const SignIn = () => {
             if(result['status'] == 'success'){
                 localStorage['userId'] = result['data'].userId;
                 console.log(result['data'].userId);
+                toast.success("Login Successfully");
                 navigator('/todo')
             }
-           // toast.success("Login Successfully");
+            else{
+              toast.error("InCorrect Username or Password");
+            }
+            
         }).catch(err => {
-            toast.error("InCorrect Username or Password");
             console.error(err);
         })
     } 
   }
 
   return (
-    <div id = 'signin' style={{ display: '-webkit-box'}}>
+    <div id = 'signin' style={{ display: 'flex', justifyContent : 'center'}}>
     <Grid2 container component="main" maxWidth="xs" >
       <CssBaseline />
       <Grid item xs={false} sm={7} md={4}/>
