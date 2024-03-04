@@ -52,27 +52,45 @@ const Signup = () => {
   const [password, SetPassword] = useState('');
   const classes = useStyles();
   const navigator = useNavigate();
+  const [isValid, setIsValid] = useState(false);
+
+  function validatePassword(password : string){
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/;
+    const isValidPassword = passwordRegex.test(password);
+    setIsValid(isValidPassword);
+  }
 
   function saveUser(e: FormEvent<HTMLFormElement>){
     e.preventDefault();
     const UserDto : UserDto = { userId : 0, userName : name, userPass : password, userEmail : email}
+    validatePassword(password);
+    console.log(password);
     if(name.length == 0){
       toast.warning("Please Enter UserName");
     }
-    else if(email.length == 0){
+    else if(email.length == 0 || email.length >  50){
       toast.warning("Please Enter Email");
     }
     else if(password.length == 0){
       toast.warning("Please Enter Password");
     }
+    else if(!isValid){
+      toast.warning("Password should should contain atleast 1 uppercase, 1 lowercase, 1 symbol, 1 number");
+    }
     else{
       createUser(UserDto).then((response) => {
-        console.log(response.data);
-        toast.success("User Registor Successfully");
-        navigator("/");
+        if(response.data.status === "success"){
+          console.log(response.data);
+          toast.success("User Registor Successfully");
+          navigator("/");
+        }
       }).catch(err => {
-        toast.error("User with same UserName or Email is register");
-        console.error(err);
+        if(err.response){
+          console.error(err.response);
+          toast.error(err.response.data);
+        }else{
+          console.error(err);
+        }
       })
     }
   }

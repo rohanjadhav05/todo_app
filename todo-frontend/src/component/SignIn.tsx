@@ -52,17 +52,28 @@ export const SignIn = () => {
   const classes = useStyles();
   const [useremail, SetUserEmail] = useState('');
   const [password, SetPassword] = useState('');
+  const [isValid, setIsValid] = useState(false);
   const navigator = useNavigate();
+  
+  function validatePassword(password : string){
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/;
+    const isValidPassword = passwordRegex.test(password);
+    setIsValid(isValidPassword);
+  }
 
   function loginUser(e: FormEvent<HTMLFormElement>){
     e.preventDefault()
     const loginUserDto : UserDto = { userId : 0, userName : "", userPass : password, userEmail : useremail}
+    validatePassword(password);
     console.log('Object:', loginUserDto);
     if(useremail.length == 0){
         toast.warning("Please Enter UserName");
     }
     else if(password.length == 0){
         toast.warning("Please Enter Password");
+    }
+    else if(!isValid){
+      toast.warning("Password should should contain atleast 1 uppercase, 1 lowercase and 1 symbol and 1 number")
     }
     else{
         axios.post("http://localhost:7070/user/login", loginUserDto).then((response) => {
@@ -79,7 +90,12 @@ export const SignIn = () => {
             }
             
         }).catch(err => {
+          if(err.response){
+            console.error(err.response);
+            toast.error(err.response.data);
+          }else{
             console.error(err);
+          }
         })
     } 
   }

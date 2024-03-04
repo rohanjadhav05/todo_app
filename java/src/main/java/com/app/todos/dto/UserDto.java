@@ -1,5 +1,7 @@
 package com.app.todos.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,11 @@ import lombok.ToString;
 @Getter
 @ToString
 public class UserDto {
+	
 	private Integer userId;
 	private String userName;
-	private String userEmail; 
+	@Email(message = "Please enter a valid Email")
+	private String userEmail;
+	@NotBlank(message = "Please enter Password")
 	private String userPass; 
 }

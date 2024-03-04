@@ -2,6 +2,8 @@ package com.app.todos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import com.app.todos.dto.UserDto;
 import com.app.todos.service.TodoService;
 import com.app.todos.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -31,13 +34,29 @@ public class UserController {
 	
 	
 	@PostMapping("/singUp")
-	public ResponseEntity<?> signUpUser(@RequestBody UserDto userDto){
+	public ResponseEntity<?> signUpUser(@Valid @RequestBody UserDto userDto, BindingResult result){
 		System.out.println("UserDto : "+userDto.toString());
+		System.out.println("Result : "+result.toString());
+		if(result.hasErrors()) {
+			String str = "";
+			for(FieldError error : result.getFieldErrors()) {
+				str += error.getDefaultMessage()+"\n";
+			}
+			return ResponseEntity.badRequest().body(str);
+		}
 		return Response.success(userService.addUser(userDto));
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> LogInUser(@RequestBody UserDto userDto){
+	public ResponseEntity<?> LogInUser(@Valid @RequestBody UserDto userDto, BindingResult result){
+		System.out.println("Result : "+result.toString());
+		if(result.hasErrors()) {
+			String str = "";
+			for(FieldError error : result.getFieldErrors()) {
+				str += error.getDefaultMessage()+"\n";
+			}
+			return ResponseEntity.badRequest().body(str);
+		}
 		UserDto user = userService.loginUser(userDto);
 		if(user != null) {
 			return Response.success(user);
