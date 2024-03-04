@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { loggedState } from '../store/atoms/logged';
@@ -20,7 +20,7 @@ export default function DenseAppBar() {
   const isLogged = useRecoilValue(isLoggedSelector);
 
   useEffect(() => {
-    if(localStorage['userId'] == 1){
+    if(localStorage['userId']){
       setLoggedState({isLogged : true});
     }
   }, [localStorage['userId']]);

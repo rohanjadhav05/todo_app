@@ -14,7 +14,9 @@ import { useNavigate } from 'react-router-dom';
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import { UserDto } from "./TodoComponent";
 import { createUser } from '../service/TodoService';
-import { Paper } from '@mui/material';
+import { IconButton, InputAdornment, Paper } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 
 const useStyles = makeStyles(theme => ({
@@ -52,18 +54,16 @@ const Signup = () => {
   const [password, SetPassword] = useState('');
   const classes = useStyles();
   const navigator = useNavigate();
-  const [isValid, setIsValid] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  function validatePassword(password : string){
+  function validatePassword(password : string) : boolean{
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/;
-    const isValidPassword = passwordRegex.test(password);
-    setIsValid(isValidPassword);
+    return passwordRegex.test(password);
   }
 
   function saveUser(e: FormEvent<HTMLFormElement>){
     e.preventDefault();
-    const UserDto : UserDto = { userId : 0, userName : name, userPass : password, userEmail : email}
-    validatePassword(password);
+    const UserDto : UserDto = { userId : 0, userName : name, userPass : password, userEmail : email} 
     console.log(password);
     if(name.length == 0){
       toast.warning("Please Enter UserName");
@@ -74,7 +74,7 @@ const Signup = () => {
     else if(password.length == 0){
       toast.warning("Please Enter Password");
     }
-    else if(!isValid){
+    else if(!validatePassword(password)){
       toast.warning("Password should should contain atleast 1 uppercase, 1 lowercase, 1 symbol, 1 number");
     }
     else{
@@ -148,12 +148,23 @@ const Signup = () => {
                   fullWidth
                   name="password"
                   label="Password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => {
                     SetPassword(e.target.value)
+                  }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => {
+                          setShowPassword((prevShowPassword) => !prevShowPassword);
+                        }} edge="end">
+                          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
                   }}
                 />
               </Grid>
