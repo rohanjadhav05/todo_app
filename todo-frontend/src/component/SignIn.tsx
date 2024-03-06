@@ -20,6 +20,7 @@ import { IconButton, InputAdornment } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
+
 const useStyles = makeStyles(theme => ({
   "@global": {
     body: {
@@ -99,6 +100,10 @@ export const SignIn = () => {
         })
     } 
   }
+  
+  function loginUsingGitHub(){
+    window.location.href = ""
+  }
 
   return (
     <div id = 'signin' style={{ display: 'flex', justifyContent : 'center'}}>
@@ -157,12 +162,6 @@ export const SignIn = () => {
                 }}
               />
               </Grid>
-              <Grid item xs={12} sm={12}>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              </Grid>
               <Button
                 type="submit"
                 fullWidth
@@ -171,6 +170,15 @@ export const SignIn = () => {
                 className={classes.submit}
               >
                 Sign In
+              </Button>
+              <Button
+                  fullWidth
+                  variant="contained"
+                  color="default"
+                  onClick={loginUsingGitHub}
+                  className={classes.submit}
+                >
+                  Sign In with GitHub
               </Button>
               <Grid container>
                 <Grid item xs>

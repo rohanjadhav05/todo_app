@@ -37,14 +37,26 @@ const TodoComponent = () => {
     getAllTodos();
   }, []);
 
-  function getAllTodos() {
+  const getAllTodos = async() => {
     const id : number = localStorage['userId'];
-    getallTodo(id).then((response) => {
-      const result = response.data;
-      setTodo(result['data']);
-    }).catch(error => {
-      console.log(error);
-    })
+    
+    const response = await fetch(
+      "http://localhost:7070/todo/"+id, 
+      {
+        method : "GET",
+        redirect : "follow",
+        credentials : "include"  // Include credentials (e.g., cookies) in the request
+      }
+    ).then((response) => response);
+
+    const data = await response.json();
+    setTodo(data);
+    // getallTodo(id).then((response) => {
+    //   const result = response.data;
+    //   setTodo(result['data']);
+    // }).catch(error => {
+    //   console.log(error);
+    // })
   }
 
   function inProgressTodo(t : TodoDto){

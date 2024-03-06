@@ -2,6 +2,10 @@ package com.app.todos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.todos.dto.Response;
 import com.app.todos.dto.TodoDto;
 import com.app.todos.dto.UserDto;
+import com.app.todos.repository.UserRepository;
 import com.app.todos.service.TodoService;
 import com.app.todos.service.UserService;
 
@@ -31,6 +36,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	public UserRepository userRepo;
 	
 	
 	@PostMapping("/singUp")
@@ -50,6 +58,7 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<?> LogInUser(@Valid @RequestBody UserDto userDto, BindingResult result){
 		System.out.println("Result : "+result.toString());
+		
 		if(result.hasErrors()) {
 			String str = "";
 			for(FieldError error : result.getFieldErrors()) {
@@ -64,5 +73,7 @@ public class UserController {
 		return Response.error("Login In Failed");
 	
 	}
+	
+	
 	
 }
