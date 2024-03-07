@@ -77,7 +77,7 @@ export const SignIn = () => {
       toast.warning("Password should should contain atleast 1 uppercase, 1 lowercase and 1 symbol and 1 number")
     }
     else{
-        axios.post("http://localhost:7070/user/login", loginUserDto).then((response) => {
+        axios.post("http://localhost:8080/user/login", loginUserDto).then((response) => {
             const result = response.data;
             console.log('Result :', result);
             if(result['status'] == 'success'){
@@ -99,10 +99,6 @@ export const SignIn = () => {
           }
         })
     } 
-  }
-  
-  function loginUsingGitHub(){
-    window.location.href = ""
   }
 
   return (
@@ -170,15 +166,6 @@ export const SignIn = () => {
                 className={classes.submit}
               >
                 Sign In
-              </Button>
-              <Button
-                  fullWidth
-                  variant="contained"
-                  color="default"
-                  onClick={loginUsingGitHub}
-                  className={classes.submit}
-                >
-                  Sign In with GitHub
               </Button>
               <Grid container>
                 <Grid item xs>

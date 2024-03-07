@@ -10,8 +10,7 @@ import Home from './component/Home.js';
 import { SignIn } from './component/SignIn.js';
 import Signup from './component/Signup.js';
 import {
-  RecoilRoot,
-  useSetRecoilState
+  RecoilRoot
 } from 'recoil';
 
 function App() {

@@ -37,26 +37,26 @@ const TodoComponent = () => {
     getAllTodos();
   }, []);
 
-  const getAllTodos = async() => {
+  function getAllTodos(){
     const id : number = localStorage['userId'];
-    
-    const response = await fetch(
-      "http://localhost:7070/todo/"+id, 
-      {
-        method : "GET",
-        redirect : "follow",
-        credentials : "include"  // Include credentials (e.g., cookies) in the request
-      }
-    ).then((response) => response);
+    getallTodo(id).then((response) => {
+      const result = response.data;
+      setTodo(result['data']);
+    }).catch(error => {
+      console.log(error);
+    })
+    // const response = await fetch(
+    //   "http://localhost:8080/todo/"+id, 
+    //   {
+    //     method : "GET",
+    //     redirect : "follow"
+    //   }
+    // ).then((response) => response);
 
-    const data = await response.json();
-    setTodo(data);
-    // getallTodo(id).then((response) => {
-    //   const result = response.data;
-    //   setTodo(result['data']);
-    // }).catch(error => {
-    //   console.log(error);
-    // })
+    // const data = await response.json();
+    // console.log(data);
+    // setTodo(data);
+    
   }
 
   function inProgressTodo(t : TodoDto){
