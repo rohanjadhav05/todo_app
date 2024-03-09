@@ -72,6 +72,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<finalName>todo_app</finalName>
 		</plugins>
 	</build>
 
