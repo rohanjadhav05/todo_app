@@ -72,8 +72,8 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<finalName>todo_app</finalName>
 		</plugins>
+		<finalName>todo_app</finalName>
 	</build>
 
 </project>

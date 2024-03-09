@@ -73,6 +73,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>todo_app</finalName>
 	</build>
 
 </project>
