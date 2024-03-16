@@ -1,4 +1,4 @@
-giversion : "3.8"
+version : "3.8"
 services:
   mydb:
     image: mysql:5.7
