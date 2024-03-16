@@ -1,4 +1,5 @@
-FROM openjdk:17-jdk-alpine
-EXPOSE 8080
-ADD /target/todo_app.jar todo_app.jar 
-ENTRYPOINT ["java", "-jar", "/todo_app.jar"]
+FROM maven:3.8.3-openjdk-17
+WORKDIR /java
+COPY ..
+RUN mvn clean install
+CMD mvn spring-boot:run
