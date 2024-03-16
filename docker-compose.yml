@@ -1,6 +1,7 @@
 version : "3.8"
 services:
   mydb:
+    platform: linux/x86_64
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD='suraj'
