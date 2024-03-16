@@ -73,7 +73,11 @@
 				</configuration>
 			</plugin>
 		</plugins>
+<<<<<<< HEAD
 		<finalName>todo_app</final_name>
+=======
+		<finalName>todo_app</finalName>
+>>>>>>> master
 	</build>
 
 </project>
