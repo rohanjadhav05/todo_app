@@ -21,7 +21,7 @@ model todo_user{
 }
 
 model todo_schema{
-  todo_id Int @id
+  todo_id Int @id @default(autoincrement())
   title String? 
   description String?
   done Boolean @default(false)
